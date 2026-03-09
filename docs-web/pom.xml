@@ -184,10 +184,17 @@
                 <application.mode>dev</application.mode>
                 <docs.home>../data/docs</docs.home>
               </systemProperties>
-              <webApp>
-                <contextPath>/docs-web</contextPath>
-                <overrideDescriptor>${project.basedir}/src/dev/main/webapp/web-override.xml</overrideDescriptor>
-              </webApp>
+              <!-- Bind Jetty to all interfaces so Windows can reach it via localhost when running in WSL -->
+              <connectors>
+                <connector implementation="org.eclipse.jetty.server.ServerConnector">
+                  <port>8080</port>
+                  <host>0.0.0.0</host>
+                </connector>
+              </connectors>
+            <webApp>
+  <contextPath>/</contextPath>
+  <resourceBase>${project.basedir}/src/main/webapp</resourceBase>
+</webApp>
             </configuration>
           </plugin>
           
