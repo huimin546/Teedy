@@ -1,56 +1,54 @@
 pipeline {
     agent any
 
-    tools {
-            maven 'M3'
-        }
-
     stages {
         stage('Clean') {
             steps {
-                bat 'mvn clean'
+                // 如果项目根目录下有 mvnw.cmd (Maven Wrapper)，优先使用它
+                // 如果没有，直接尝试调用系统命令
+                bat 'if exist mvnw.cmd (mvnw.cmd clean) else (mvn clean)'
             }
         }
 
         stage('Compile') {
             steps {
-                bat 'mvn compile'
+                bat 'if exist mvnw.cmd (mvnw.cmd compile) else (mvn compile)'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test -Dmaven.test.failure.ignore=true'
+                bat 'if exist mvnw.cmd (mvnw.cmd test -Dmaven.test.failure.ignore=true) else (mvn test -Dmaven.test.failure.ignore=true)'
             }
         }
 
         stage('PMD') {
             steps {
-                bat 'mvn pmd:pmd'
+                bat 'if exist mvnw.cmd (mvnw.cmd pmd:pmd) else (mvn pmd:pmd)'
             }
         }
 
         stage('JaCoCo') {
             steps {
-                bat 'mvn jacoco:report'
+                bat 'if exist mvnw.cmd (mvnw.cmd jacoco:report) else (mvn jacoco:report)'
             }
         }
 
         stage('Javadoc') {
             steps {
-                bat 'mvn javadoc:javadoc'
+                bat 'if exist mvnw.cmd (mvnw.cmd javadoc:javadoc) else (mvn javadoc:javadoc)'
             }
         }
 
         stage('Site') {
             steps {
-                bat 'mvn site'
+                bat 'if exist mvnw.cmd (mvnw.cmd site) else (mvn site)'
             }
         }
 
         stage('Package') {
             steps {
-                bat 'mvn package -DskipTests'
+                bat 'if exist mvnw.cmd (mvnw.cmd package -DskipTests) else (mvn package -DskipTests)'
             }
         }
     }
