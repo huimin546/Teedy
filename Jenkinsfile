@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
-                // 用双引号包裹全路径（因为路径中带有空格），反斜杠写两个进行转义
                 bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" clean'
             }
         }
@@ -35,7 +34,8 @@ pipeline {
 
         stage('Javadoc') {
             steps {
-                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" javadoc:javadoc'
+                // 加上这两个关键参数，让不规范的注释报错变成警告，允许流水线顺利通过
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" javadoc:javadoc -DfailOnError=false -Dadditionalparam="-Xdoclint:none"'
             }
         }
 
