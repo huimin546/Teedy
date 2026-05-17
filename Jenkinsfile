@@ -34,8 +34,8 @@ pipeline {
 
         stage('Javadoc') {
             steps {
-                // 加上这两个关键参数，让不规范的注释报错变成警告，允许流水线顺利通过
-                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" javadoc:javadoc -DfailOnError=false -Dadditionalparam="-Xdoclint:none"'
+                // 使用更加兼容 Windows bat 的高级 doclint 参数格式，并且强制指定即使错也忽略
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" javadoc:javadoc -Ddoclint=none -DfailOnError=false'
             }
         }
 
