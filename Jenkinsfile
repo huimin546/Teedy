@@ -4,51 +4,50 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
-                // 如果项目根目录下有 mvnw.cmd (Maven Wrapper)，优先使用它
-                // 如果没有，直接尝试调用系统命令
-                bat 'if exist mvnw.cmd (mvnw.cmd clean) else (mvn clean)'
+                // 用双引号包裹全路径（因为路径中带有空格），反斜杠写两个进行转义
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" clean'
             }
         }
 
         stage('Compile') {
             steps {
-                bat 'if exist mvnw.cmd (mvnw.cmd compile) else (mvn compile)'
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" compile'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'if exist mvnw.cmd (mvnw.cmd test -Dmaven.test.failure.ignore=true) else (mvn test -Dmaven.test.failure.ignore=true)'
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" test -Dmaven.test.failure.ignore=true'
             }
         }
 
         stage('PMD') {
             steps {
-                bat 'if exist mvnw.cmd (mvnw.cmd pmd:pmd) else (mvn pmd:pmd)'
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" pmd:pmd'
             }
         }
 
         stage('JaCoCo') {
             steps {
-                bat 'if exist mvnw.cmd (mvnw.cmd jacoco:report) else (mvn jacoco:report)'
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" jacoco:report'
             }
         }
 
         stage('Javadoc') {
             steps {
-                bat 'if exist mvnw.cmd (mvnw.cmd javadoc:javadoc) else (mvn javadoc:javadoc)'
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" javadoc:javadoc'
             }
         }
 
         stage('Site') {
             steps {
-                bat 'if exist mvnw.cmd (mvnw.cmd site) else (mvn site)'
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" site'
             }
         }
 
         stage('Package') {
             steps {
-                bat 'if exist mvnw.cmd (mvnw.cmd package -DskipTests) else (mvn package -DskipTests)'
+                bat '"D:\\IDEA\\IntelliJ IDEA 2025.2.5\\plugins\\maven\\lib\\maven3\\bin\\mvn.cmd" package -DskipTests'
             }
         }
     }
