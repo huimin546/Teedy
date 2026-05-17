@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//mnt/d/**)",
+      "Bash(/mnt/c/ProgramData/Microsoft/Windows/Start Menu/Programs/Maven/mvn --version)",
+      "Read(//mnt/**)",
+      "Bash(powershell.exe -Command \"Get-ChildItem -Path 'C:\\\\' -Recurse -Filter 'mvn.cmd' -ErrorAction SilentlyContinue | Select-Object FullName | Select-Object -First 5\" 2>&1)",
+      "Bash(powershell.exe -Command \"Get-ChildItem 'C:\\\\Program Files' -ErrorAction SilentlyContinue | Where-Object Name -like '*maven*'\" 2>&1)"
+    ]
+  }
+}
