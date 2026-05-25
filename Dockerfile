@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/ubuntu:22.04
 LABEL maintainer="b.gamard@sismics.com"
 
 # Run Debian in non interactive mode
